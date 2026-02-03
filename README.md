@@ -1,0 +1,2 @@
+# stack-rsyslog
+Rsyslog deployment.
