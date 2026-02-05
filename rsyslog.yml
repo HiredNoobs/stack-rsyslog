@@ -1,0 +1,26 @@
+service:
+  rsyslog:
+    image: $RSYSLOG_IMAGE
+    ports:
+      - mode: host
+        published: $UDP_PORT
+        target: $UDP_PORT
+        protocol: udp
+      - mode: host
+        published: $TCP_PORT
+        target: $TCP_PORT
+        protocol: tcp
+    configs:
+      - source: rsyslog_conf
+        target: /etc/rsyslog.conf
+    deploy:
+      mode: replicated
+      replicas: $RSYSLOG_REPLICAS
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - node.labels.${STACK}_rsyslog == 1
+
+configs:
+  rsyslog_conf:
+    file: ${CONFIGS}/rsyslog.conf
