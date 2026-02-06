@@ -26,5 +26,5 @@ function stack_env {
 }
 
 function stack_deploy {
-  docker stack deploy --detached=true -c rsyslog.yml "$STACK"
+  docker stack deploy --detach=true -c rsyslog.yml "$STACK"
 }
