@@ -1,4 +1,4 @@
-service:
+services:
   rsyslog:
     image: $RSYSLOG_IMAGE
     ports:
