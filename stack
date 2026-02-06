@@ -5,19 +5,21 @@
 # -----------------------------------------------------
 
 function stack_check_env {
-  if [ ! -d "$CONFIGS" ] || [ ! -d "$SECRETS"]; then
+  if [ ! -d "$CONFIGS" ] || [ ! -d "$SECRETS" ]; then
     echo "Configs or secrets directory are missing from '$ENVIRONMENT_BASE'."
     exit 1
   fi
 }
 
-function stack_discover {}
+function stack_discover {
+  export RSYSLOG_REPLICAS=$(count "$RSYSLOG_NODES")
+}
 
 function stack_env {
   echo
   echo "DOCKER IMAGE  = $RSYSLOG_IMAGE"
   echo "RSYSLOG NODES = ($RSYSLOG_REPLICAS)"
-  list $RSYSLOG_NODES
+  list "$RSYSLOG_NODES"
   echo
   echo "UDP/TCP PORT  = $UDP_PORT/$TCP_PORT"
   echo
