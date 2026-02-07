@@ -15,11 +15,6 @@ function stack_discover {
   export RSYSLOG_REPLICAS=$(count "$RSYSLOG_NODES")
 }
 
-function stack_clean {
-  echo "Removing $STACK..."
-  docker stack rm "$STACK" --detach=false
-}
-
 function stack_env {
   echo
   echo "DOCKER IMAGE  = $RSYSLOG_IMAGE"
