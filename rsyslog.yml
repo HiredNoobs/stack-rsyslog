@@ -1,5 +1,6 @@
 services:
   rsyslog:
+    hostname: rsyslog{{.Task.Slot}}
     image: $RSYSLOG_IMAGE
     ports:
       - mode: host
