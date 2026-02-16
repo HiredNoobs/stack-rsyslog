@@ -21,7 +21,7 @@ function stack_env {
   echo "RSYSLOG NODES = ($RSYSLOG_REPLICAS)"
   list "$RSYSLOG_NODES"
   echo
-  echo "UDP/TCP PORT  = $UDP_PORT/$TCP_PORT"
+  echo "UDP/TCP PORT  = $RSYSLOG_UDP_PORT/$RSYSLOG_TCP_PORT"
   echo
 }
 

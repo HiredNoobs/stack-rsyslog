@@ -4,12 +4,12 @@ services:
     image: $RSYSLOG_IMAGE
     ports:
       - mode: host
-        published: $UDP_PORT
-        target: $UDP_PORT
+        published: $RSYSLOG_UDP_PORT
+        target: $RSYSLOG_UDP_PORT
         protocol: udp
       - mode: host
-        published: $TCP_PORT
-        target: $TCP_PORT
+        published: $RSYSLOG_TCP_PORT
+        target: $RSYSLOG_TCP_PORT
         protocol: tcp
     configs:
       - source: rsyslog_conf
