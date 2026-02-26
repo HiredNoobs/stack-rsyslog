@@ -24,7 +24,7 @@ ruleset(name="remote") {
 
   action(
     type="omfwd"
-    target="prod-grafana001.hirednoobs.online"
+    target="prod-grafana001.$DOMAIN"
     port="514"
     protocol="tcp"
     template="RawOutput"

@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 
 # -----------------------------------------------------
+# Helper functions
+# -----------------------------------------------------
+
+function build_configs {
+  find "$CONFIGS" -maxdepth 1 -type f -name '*.tmpl' | while IFS= read -r tmpl; do
+    local out="${tmpl%.tmpl}"
+    envsubst < "$tmpl" > "$out"
+  done
+}
+
+# -----------------------------------------------------
 # Stack functions
 # -----------------------------------------------------
 
@@ -26,5 +37,6 @@ function stack_env {
 }
 
 function stack_deploy {
+  build_configs
   docker stack deploy --detach=true -c rsyslog.yml "$STACK"
 }
