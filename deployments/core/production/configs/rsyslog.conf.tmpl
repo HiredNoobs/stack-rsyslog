@@ -5,15 +5,13 @@ input(type="imudp" port="514" ruleset="remote")
 input(type="imtcp" port="514" ruleset="remote")
 
 template(name="RawOutput" type="string" string="%rawmsg%\n")
-template(name="ExtractJSON" type="list") {
-  property(name="msg" regex="^[^:]+: (.*)$" format="json")
-}
+template(name="ExtractJSON" type="string" string="%msg:2:$%")
 
 ruleset(name="remote") {
-  if ($syslogtag contains "nginx") then {
+  if $syslogtag contains "nginx" then {
     action(
       type="omhttp"
-      server="victorialogs.$DOMAIN"
+      server="victorialogs.${DOMAIN}"
       serverport="443"
       usehttps="on"
       endpoint="/insert/jsonline"
@@ -25,7 +23,7 @@ ruleset(name="remote") {
   } else {
     action(
       type="omfwd"
-      target="prod-grafana001.$DOMAIN"
+      target="prod-grafana001.${DOMAIN}"
       port="514"
       protocol="tcp"
       template="RawOutput"
