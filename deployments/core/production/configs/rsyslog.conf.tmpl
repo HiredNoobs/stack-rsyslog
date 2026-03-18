@@ -1,20 +1,26 @@
 module(load="imudp")
 module(load="imtcp")
+module(load="omhttp")
 
 input(type="imudp" port="514" ruleset="remote")
 input(type="imtcp" port="514" ruleset="remote")
 
 template(name="RawOutput" type="string" string="%rawmsg%\n")
-template(name="ExtractJSON" type="string" string="%msg:2:$%")
+template(name="ExtractJSON" type="string" string="%msg%")
 
 ruleset(name="remote") {
-  if $syslogtag contains "nginx" then {
+  # Prevent infinite loop
+  if $msg contains "/insert/jsonline"  then {
+    stop
+  }
+
+  if $hostname contains "nginx" then {
     action(
       type="omhttp"
-      server="victorialogs.${DOMAIN}"
+      server="victorialogs.$DOMAIN"
       serverport="443"
       usehttps="on"
-      endpoint="/insert/jsonline"
+      restpath="/insert/jsonline"
       template="ExtractJSON"
       action.resumeRetryCount="-1"
       queue.type="linkedlist"
@@ -23,7 +29,7 @@ ruleset(name="remote") {
   } else {
     action(
       type="omfwd"
-      target="prod-grafana001.${DOMAIN}"
+      target="prod-grafana001.$DOMAIN"
       port="514"
       protocol="tcp"
       template="RawOutput"
