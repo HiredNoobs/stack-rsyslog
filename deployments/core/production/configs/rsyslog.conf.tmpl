@@ -29,7 +29,7 @@ ruleset(name="remote") {
   } else {
     action(
       type="omfwd"
-      target="prod-grafana001.$DOMAIN"
+      target="prod-victorialogs001.$DOMAIN"
       port="514"
       protocol="tcp"
       template="RawOutput"
