@@ -17,8 +17,8 @@ ruleset(name="remote") {
   if $hostname contains "nginx" then {
     action(
       type="omhttp"
-      server="victorialogs.$DOMAIN"
-      serverport="443"
+      server="prod-victorialogs001.$DOMAIN"
+      serverport="9428"
       usehttps="on"
       restpath="/insert/jsonline"
       template="ExtractJSON"
