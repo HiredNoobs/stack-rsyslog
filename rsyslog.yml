@@ -14,6 +14,9 @@ services:
     configs:
       - source: rsyslog_conf
         target: /etc/rsyslog.conf
+    secrets:
+      - source: vlogs_ca_crt
+        target: /etc/rsyslog/tls/vlogs-ca.crt
     deploy:
       mode: replicated
       replicas: $RSYSLOG_REPLICAS
@@ -25,3 +28,7 @@ services:
 configs:
   rsyslog_conf:
     file: ${CONFIGS}/rsyslog.conf
+
+secrets:
+  vlogs_ca_crt:
+    file: ${SECRETS}/vlogs-ca.crt

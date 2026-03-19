@@ -20,6 +20,7 @@ ruleset(name="remote") {
       server="prod-victorialogs001.$DOMAIN"
       serverport="9428"
       usehttps="on"
+      tls.cacert="/etc/rsyslog/tls/vlogs-ca.crt"
       restpath="/insert/jsonline"
       template="ExtractJSON"
       action.resumeRetryCount="-1"
